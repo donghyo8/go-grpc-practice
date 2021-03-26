@@ -18,7 +18,7 @@ const portNumber = "9001"
 type postServer struct {
 	postpb.PostServer
 
-	userCli userpb.
+	userCli userpb.UserClient
 }
 
 func (s *postServer) ListPostsByUserId(ctx context.Context, req *postpb.ListPostsByUserIdRequest) (*postpb.ListPostsByUserIdResponse, error) {
