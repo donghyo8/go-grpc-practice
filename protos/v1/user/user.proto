@@ -5,7 +5,10 @@ package v1.user;
 option go_package = "go-grpc/protos/v1/user";
 
 service User {
+    // user id를 전달할 경우, user id에 맞는 유저의 정보를 리턴하는 rpc
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
+
+    // 모든 유저들의 정보를 리턴하는 rpc
     rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
 }
 
