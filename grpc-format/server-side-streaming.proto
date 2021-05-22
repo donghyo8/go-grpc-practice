@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package unary;
+
+option go_package = "go-grpc/grpc format";
+
+/* 
+ - client가 Unary와 같이 request를 보내는데 서버는 stream으로 메시지를 리턴하는 방식
+ - client는 단일 메시지를 바로 받고 끝내는게 아니라 서버가 전달한 stream을 메세지가 없을 때까지 계속 구독함
+ - 한번에 큰 데이터를 리턴하면 client는 데이터를 받기까지 계속 blocking 되어있어 다른 작업을 하지못하기에, 이를 위해 server-side treaming 방식을 사용함
+*/
+service ServerSideStreaming {
+    rpc GetUser(GetUserRequest) returns (stream GetUserResponse);
+
+}
+
+message GetUserRequest {}
+message GetUserResponse {}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package unary;
+
+option go_package = "go-grpc/grpc-format";
+
+/* 
+ - client와 서버가 둘다 stream 방식으로 서로 주고 받는 방식
+ - 2개의 stream은 독립적이여서 client나 서버는 어떤 순서로도 동작 가능함
+ - 서버는 client가 stream으로 request를 모두 보낼 때까지 기다리고 난 후, reponse를 주거나 request가 올 때 마다 reponse를 보낼것인가를 자율적으로 할 수 있음
+*/
+service BidirectionalStreaming {
+    rpc GetUser(stream GetUserRequest) returns (stream GetUserResponse);
+
+}
+
+message GetUserRequest {}
+message GetUserResponse {}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package unary;
+
+option go_package = "go-grpc/grpc-format";
+
+/*
+ - client가 request를 보내면 서버로부터 reponse가 올 때까지 기다리는 방식
+ - 예제에서는 한번 post 서버의 rpc가 호출되었을 때 user 서버한테 user id를 전달하고 user의 정보를 리턴할 때까지 기다리게 하였음
+*/
+service Unary {
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+
+}
+
+message GetUserRequest {}
+message GetUserResponse {}

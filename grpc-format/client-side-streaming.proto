@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package unary;
+
+option go_package = "go-grpc/grpc-format";
+
+/* 
+ - server-side streaming과 반대로 client가 stream으로 서버한테 request를 보내는 방식
+ - client는 stream으로 데이터를 모두 보내고 난 후, 서버가 해당 데이터를 모두 받아 처리하고 response를 해줄 때까지 기다림
+*/
+service ClientSideStreaming {
+    rpc GetUser(stream GetUserRequest) returns (GetUserResponse);
+
+}
+
+message GetUserRequest {}
+message GetUserResponse {}
