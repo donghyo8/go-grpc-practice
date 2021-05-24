@@ -18,7 +18,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserClient interface {
+	// user id를 전달할 경우, user id에 맞는 유저의 정보를 리턴하는 rpc
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
+	// 모든 유저들의 정보를 리턴하는 rpc
 	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
 }
 
@@ -52,7 +54,9 @@ func (c *userClient) ListUsers(ctx context.Context, in *ListUsersRequest, opts .
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
 type UserServer interface {
+	// user id를 전달할 경우, user id에 맞는 유저의 정보를 리턴하는 rpc
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
+	// 모든 유저들의 정보를 리턴하는 rpc
 	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
 	mustEmbedUnimplementedUserServer()
 }
