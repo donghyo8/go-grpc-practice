@@ -3,6 +3,7 @@ syntax = "proto3";
 package v2.user;
 
 option go_package = "go-grpc/protos/v2/user";
+
 import "google/api/annotations.proto";
 
 service User {

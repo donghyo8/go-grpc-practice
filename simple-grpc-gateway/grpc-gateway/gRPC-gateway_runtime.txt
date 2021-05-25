@@ -1,0 +1,40 @@
+https://github.com/grpc-ecosystem/grpc-gateway/tree/master/runtime
+
+/* 
+   WithIncomingHeaderMatcher gateway에 들어온 요청에 대해 특정 헤더만 허용
+   Client로 요청이 올 경우, 여기에 정의된 헤더를 포함하는 경우에만 gRPC 서버에 요청을 전달
+*/
+func WithIncomingHeaderMatcher(fn HeaderMatcherFunc) ServeMuxOption {
+	return func(mux *ServeMux) {
+		mux.incomingHeaderMatcher = fn
+	}
+}
+
+/* 
+   WithOutgoingHeaderMatcher은 반대로 gateway에서 나가는 요청에 대해 특정 헤더들을 허용
+*/
+func WithOutgoingHeaderMatcher(fn HeaderMatcherFunc) ServeMuxOption {
+	return func(mux *ServeMux) {
+		mux.outgoingHeaderMatcher = fn
+	}
+}
+
+/* 
+   WithErrorHandler은 커스텀 에러 핸들러를 구성할 수 있게 해줌
+*/
+func WithErrorHandler(fn ErrorHandlerFunc) ServeMuxOption {
+	return func(serveMux *ServeMux) {
+		serveMux.errorHandler = fn
+	}
+}
+
+/*
+  WithMarshalerOption marshaler에 대한 옵션 제공
+*/
+func WithMarshalerOption(mime string, marshaler Marshaler) ServeMuxOption {
+	return func(mux *ServeMux) {
+		if err := mux.marshalers.add(mime, marshaler); err != nil {
+			panic(err)
+		}
+	}
+}
