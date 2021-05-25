@@ -5,9 +5,10 @@ import (
 	"log"
 	"net"
 
-	"google.golang.org/grpc"
 	"go-grpc/data"
 	userpb "go-grpc/protos/v1/user"
+
+	"google.golang.org/grpc"
 )
 
 const portNumber = "9000"
