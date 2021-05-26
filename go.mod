@@ -5,8 +5,10 @@ go 1.15
 require (
 	github.com/dojinkimm/go-grpc-example v0.0.0-20210301015501-3fb03e89ad59
 	github.com/golang/glog v0.0.0-20210429001901-424d2337a529 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.4.0
+	github.com/sirupsen/logrus v1.8.1
 	golang.org/x/net v0.0.0-20210316092652-d523dce5a7f4 // indirect
 	golang.org/x/oauth2 v0.0.0-20210427180440-81ed05c6b58c
 	golang.org/x/sys v0.0.0-20210320140829-1e4c9ba3b0c4 // indirect

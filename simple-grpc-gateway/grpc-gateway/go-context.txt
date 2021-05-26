@@ -1,0 +1,52 @@
+// context 생성(한번 생성된 컨텍스트는 변경 불가)
+   func Background() Context
+
+// context에 값을 추가하고 싶을 시 context.WithValue 함수로 새 context를 생성
+   func WithValue(parent Context, key, val interface{}) Context
+
+// context의 값을 가져올 때는 context의 Value 메소드 사용
+   type Context interface {
+	      Value(key interface{}) interface{}
+   }
+
+// context.WithCancel 함수로 생성한 context에 취소 신호를 보낼 수 있음
+   func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
+
+// 일정 시간이 되어 자동으로 context에 취소 신호를 전달되도록 하려면 아래 2개 함수 사용
+   func WithDeadline(parent Context, d time.Time) (Context, CancelFunc)
+   func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
+
+
+// ex.) 
+   // context 생성
+   ctx := context.Background()
+
+   // context 값 추가하고 Withvalue 함수로 새 context 생성
+   ctx = context.WithValue(ctx, "current_user", currentUser)
+
+   // 함수 호출 시 context를 파라미터로 전달
+   myFunc(ctx)
+
+
+   func myFunc(ctx context.Context) error {
+      var currentUser User
+
+      //  context에서 값을 가져옴
+      if v := ctx.Value("current_user"); v != nil {
+         
+         // 타입 확인(type assertion)
+         u, ok := v.(User)
+         if !ok {
+            return errors.New("Not authorized")
+         }
+         currentUser = u
+      } else {
+         return errors.New("Not authorized")
+      }
+
+      // currentUser를 사용하여 로직 처리
+
+	return nil
+}
+
+// ! 주의사항: context의 Value 메소드의 리턴 값은 interface{} 타입이고, context에 값이 존재하지 않는 경우 nil이 return됨. 따라서, context에 해당 값이 존재하는지와 그 값이 원하는 타입이 맞는지 type assertion을 통해 검사해야함
